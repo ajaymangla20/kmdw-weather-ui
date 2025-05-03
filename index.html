@@ -16,7 +16,8 @@
         const res = await fetch(url);
         const data = await res.json();
 
-        const temp = data.data.temperature.at(-1);
+        const rawTemp = data.data.temperature.at(-1);
+        const temp = parseFloat(rawTemp).toFixed(1);
         const time = data.data.time.at(-1);
 
         document.getElementById("temp").innerText = `${temp} °F`;
