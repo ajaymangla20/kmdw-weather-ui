@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>KMDW Temperature</title>
+</head>
+<body>
+  <h2>Latest Temperature at KMDW</h2>
+  <p id="temp">Loading...</p>
+  <p id="time"></p>
+
+  <script>
+    async function fetchTemperature() {
+      const url = "https://www.weather.gov/wrh/graphical/graphicalJSON.php?data=obs&site=kmdw";
+
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+
+        const temp = data.data.temperature.at(-1);
+        const time = data.data.time.at(-1);
+
+        document.getElementById("temp").innerText = `${temp} °F`;
+        document.getElementById("time").innerText = `Updated: ${time}`;
+      } catch (error) {
+        document.getElementById("temp").innerText = "Failed to fetch temperature";
+        console.error(error);
+      }
+    }
+
+    fetchTemperature();
+    setInterval(fetchTemperature, 300000); // Every 5 min
+  </script>
+</body>
+</html>
