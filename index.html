@@ -10,7 +10,7 @@
 
   <script>
     async function fetchTemperature() {
-      const url = "https://www.weather.gov/wrh/graphical/graphicalJSON.php?data=obs&site=kmdw";
+      const url = "https://corsproxy.io/?https://www.weather.gov/wrh/graphical/graphicalJSON.php?data=obs&site=kmdw";
 
       try {
         const res = await fetch(url);
@@ -22,13 +22,13 @@
         document.getElementById("temp").innerText = `${temp} °F`;
         document.getElementById("time").innerText = `Updated: ${time}`;
       } catch (error) {
-        document.getElementById("temp").innerText = "Failed to fetch the temperature";
+        document.getElementById("temp").innerText = "Failed to fetch temperature";
         console.error(error);
       }
     }
 
     fetchTemperature();
-    setInterval(fetchTemperature, 300000); // Every 5 min
+    setInterval(fetchTemperature, 300000); // Refresh every 5 minutes
   </script>
 </body>
 </html>
